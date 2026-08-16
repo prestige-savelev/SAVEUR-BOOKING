@@ -7,8 +7,6 @@
 - **Nuxt 3** — SSR/SSG-фреймворк на Vue 3
 - **TypeScript** — типизация (папка `types/`)
 - **SCSS** — стили (`assets/scss/`)
-- Файловый роутинг Nuxt (`pages/`)
-- Переиспользуемая логика на **composables** (`composables/`)
 
 ## Структура проекта
 
