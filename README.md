@@ -1,75 +1,63 @@
-# Nuxt Minimal Starter
+# SAVEUR-BOOKING
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Сервис онлайн-бронирования (столики / записи) на **Nuxt 3 (Vue 3 + TypeScript)**.
 
-## Setup
+## Стек
 
-Make sure to install dependencies:
+- **Nuxt 3** — SSR/SSG-фреймворк на Vue 3
+- **TypeScript** — типизация (папка `types/`)
+- **SCSS** — стили (`assets/scss/`)
+- Файловый роутинг Nuxt (`pages/`)
+- Переиспользуемая логика на **composables** (`composables/`)
 
-```bash
-# npm
-npm install
+## Структура проекта
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+```
+├── assets/scss     # глобальные стили и переменные
+├── components      # переиспользуемые Vue-компоненты
+├── composables      # composables (работа с состоянием, API и т.д.)
+├── pages           # страницы приложения (файловый роутинг)
+├── public          # статические файлы
+├── types           # TypeScript-типы
+├── utils           # вспомогательные функции
+├── app.vue         # корневой компонент
+└── nuxt.config.ts  # конфигурация Nuxt
 ```
 
-## Development Server
+## Как запустить проект локально
 
-Start the development server on `http://localhost:3000`:
+1. Клонировать репозиторий:
+   ```bash
+   git clone https://github.com/prestige-savelev/SAVEUR-BOOKING.git
+   cd SAVEUR-BOOKING
+   ```
 
-```bash
-# npm
-npm run dev
+2. Установить зависимости:
+   ```bash
+   npm install
+   ```
 
-# pnpm
-pnpm dev
+3. Запустить dev-сервер (доступен на `http://localhost:3000`):
+   ```bash
+   npm run dev
+   ```
 
-# yarn
-yarn dev
+4. Собрать production-сборку:
+   ```bash
+   npm run build
+   ```
 
-# bun
-bun run dev
-```
+5. Локально проверить production-сборку:
+   ```bash
+   npm run preview
+   ```
 
-## Production
+## Какие решения я принял и почему
+Логика формы вынесена в composable useBookingForm, а сами правила валидации — в отдельные утилиты (validate), чтобы можно было переиспользовать и тестировать их независимо друг от друга. UI разбит на переиспользуемые компоненты в components/ (поля ввода, кнопки, слоты времени и т.д.), что позволяет собирать разные экраны из одних и тех же строительных блоков и не дублировать вёрстку. Переход между экранами формы и подтверждения бронирования реализован через локальное состояние view и Transition, а не через отдельные роуты — это простой линейный сценарий без необходимости в истории браузера или прямых ссылках на промежуточные шаги. Для качества кода подключён @nuxt/eslint — официальный модуль с готовыми правилами под Nuxt/Vue/TS, не требующий ручной настройки парсера и globals.
 
-Build the application for production:
+## Что бы я доделал при наличии ещё времени
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Маску для input телефона
+- Добавить state-менеджер
+- Покрыть composables и утилиты unit-тестами (Vitest)
+- Добавить обработку ошибок и loading/empty-состояния на всех страницах
